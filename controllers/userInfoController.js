@@ -11,8 +11,9 @@ angular.module('myApp').controller('userInfoController', function ($scope, $http
     };
 
     $scope.getUserOfCity = function(ciudad){
-        $http.get("http://172.24.100.111:8080/users?city="+ciudad).then(
+        $http.get("http://172.24.100.111:8080/users").then(
             function (response) {
+                console.log(response.data)
                 $scope.users = response.data.map(function (i) {
                     return {
                         id : i.user_id,

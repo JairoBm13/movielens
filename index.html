@@ -66,6 +66,36 @@
             <div class="col-md-5" ng-controller="configController">
                 <input type="date" name="bday">
                 <div class="row">
+                    <p class="col-md-6">Configure el recomendador</p>
+                </div>
+                <div class="row">
+                    <div id="slidecontainer" class="col-md-6">
+                        Filtrado colaborativo:
+                        <input type="range" min="0" max="100" value="100" class="slider" id="svdW" ng-model="svd">
+                        <p>Value:
+                            <span id="svdVal"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="slidecontainer" class="col-md-6">
+                        Filtrado por contenido:
+                        <input type="range" min="0" max="100" value="0" class="slider" id="contW" ng-model="cont">
+                        <p>Value:
+                            <span id="contVal"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="slidecontainer" class="col-md-6">
+                        Filtrado por texto:
+                        <input type="range" min="0" max="100" value="0" class="slider" id="textW" ng-model="text">
+                        <p>Value:
+                            <span id="textVal"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
                     <button class="btn btn-default col-md-12" ng-click="saveConfig()">Corrrer Fecha</button>
                 </div>
             </div>

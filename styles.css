@@ -6,13 +6,13 @@ footer {
 }
 
 
-/*footer {
+footer {
     position: fixed;
     height: 50px;
     bottom: 0;
     width: 100%;
     z-index: 1000;
-}*/
+}
 
 #map {
     width: 100%;
