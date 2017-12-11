@@ -1,0 +1,147 @@
+footer {
+    background-color: rgb(35, 32, 32);
+    font-size: 12px;
+    padding: 15px 0;
+    color: white;
+}
+
+
+/*footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}*/
+
+#map {
+    width: 100%;
+    height: 400px;
+    background-color: grey;
+}
+
+footer {
+    margin-top: 15px;
+}
+
+footer .col-sm-1 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+footer .col-sm-1 img {
+    width: 32px;
+    height: 32px;
+}
+
+footer .row {
+    display: flex;
+    align-items: center;
+}
+
+#slidecontainer {
+    width: 100%;
+    /* Width of the outside container */
+}
+
+
+/* The slider itself */
+
+.slider {
+    -webkit-appearance: none;
+    /* Override default CSS styles */
+    appearance: none;
+    width: 100%;
+    /* Full-width */
+    height: 25px;
+    /* Specified height */
+    background: #d3d3d3;
+    /* Grey background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.7;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+
+/* Mouse-over effects */
+
+.slider:hover {
+    opacity: 1;
+    /* Fully shown on mouse-over */
+}
+
+
+/* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #4CAF50;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #4CAF50;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+.post {
+    border: 1px solid #000000;
+    margin-bottom: 15px;
+    height: 200px;
+}
+
+.pos {
+    background-color: rgb(98, 206, 49);
+    color : white;
+}
+
+.neg {
+    background-color: rgb(206, 37, 51);
+    color : white;
+}
+
+.tip-text {
+    height: 75%;
+    width: 80%;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 15px 45px;
+
+}
+
+.tip {
+    border: 1px solid #000000;
+    margin-bottom: 15px;
+    height: 100px;
+}
+
+.post-text {
+    height: 75%;
+    max-height: 150px;
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    margin: 15px 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
