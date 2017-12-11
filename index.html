@@ -11,8 +11,6 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js">
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsYlyaSxaw5uCleQuibqpSfnPXbTauXt8" type="text/javascript"></script>
-    <script src="angular-google-maps.min.js?v=1.2.2"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.js"></script>
     <script src="./app.js"></script>
     <script src="./controllers/mainController.js"></script>
@@ -54,24 +52,34 @@
                     <p class="col-md-6">Seleccione el usuario activo</p>
                 </div>
                 <div class="row form-group">
-                    <select class="col-md-4 form-control" name="singleSelect" id="singleSelect" ng-model="selectedUser" ng-change="getUserinfo()">
+                    <select class="col-md-4 form-control" name="singleSelect" id="singleSelect" ng-model="selectedUser" ng-change="saveUserinfo()">
                         <option value="">--Please select an user--</option>
-                        <option ng-repeat="user in users" value="{{user.id}}">{{user.nombre}}</option>
+                        <option ng-repeat="user in users" value="{{user.id}}">{{user.id}} - Tiene {{user.ratings}} Ratings</option>
                     </select>
                     <hr>
                 </div>
                 <hr>
+                <div class="row">
+                    <p class="col-md-6">Seleccione cantidad de recomendaciones</p>
+                </div>
+                <div class="row form-group">
+                    <select class="col-md-4 form-control" name="singleSelect" id="singleSelect" ng-model="selectedCant" ng-change="saveCantinfo()">
+                        <option value="">--Selecciones la cantidad--</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                    <hr>
+                </div>
             </div>
 
             <div class="col-md-5" ng-controller="configController">
-                <input type="date" name="bday">
                 <div class="row">
                     <p class="col-md-6">Configure el recomendador</p>
                 </div>
                 <div class="row">
                     <div id="slidecontainer" class="col-md-6">
                         Filtrado colaborativo:
-                        <input type="range" min="0" max="100" value="100" class="slider" id="svdW" ng-model="svd">
+                        <input type="range" min="0" max="100" value="100" class="slider" id="svdW" ng-model="sgd">
                         <p>Value:
                             <span id="svdVal"></span>
                         </p>
@@ -89,7 +97,7 @@
                 <div class="row">
                     <div id="slidecontainer" class="col-md-6">
                         Filtrado por texto:
-                        <input type="range" min="0" max="100" value="0" class="slider" id="textW" ng-model="text">
+                        <input type="range" min="0" max="100" value="0" class="slider" id="textW" ng-model="onth">
                         <p>Value:
                             <span id="textVal"></span>
                         </p>
@@ -100,101 +108,42 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="post col-md-5 col-md-offset-1" ng-repeat="review in user.reviews">
-                <div class="row">
-                    <div class="buttonDiv">
-                        <p>
-                            <span>{{review.negocio}}</span> -
-                            <span>{{review.estrellas}}</span> -
-                            <span>{{review.fecha}}</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="post-text">{{review.texto}}</div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="container" ng-controller="recommenderController">
-        <div class="row">
+        <div class="row" ng-hide="search">
             <button class="col-sm-12 btn btn-primary" ng-click="get()">Pedir recomendación</button>
         </div>
-
-        <div ng-show="search">
-            <div id="map">
-                <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-                    <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+        <div class="row" ng-show="search">
+            <div class="col-md-12" ng-repeat="recomendation in recomendaciones">
+                <div class="row">
+                    Recomendaciones para {{recomendation.month}}/{{recomendation.year}}
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12" ng-repeat="negocio in negocios">
-                    <div class="row">
-                        <table class="table table-bordered table-hover col-md-4">
-                            <thead>
-                                <tr>
-                                    <td>{{negocio.name}}</td>
-                                    <td>{{negocio.address}}</td>
-                                    <td>Tiene {{negocio.stars}} estrellas</td>
-                                    <td>Para ti será un {{negocio.ranking}}</td>
-                                </tr>
-                            </thead>
-                        </table>
-                        <table class="table table-bordered table-hover col-md-4">
+                <div class="row">
+                    <table class="table table-bordered table-hover col-md-4">
+                        <thead>
                             <tr>
-                                <td>Lunes</td>
-                                <td>{{negocio.hours.Monday}}</td>
+                                <td>ID</td>
+                                <td>Nombre</td>
+                                <td>Director</td>
                             </tr>
-                            <tr>
-                                <td>Martes</td>
-                                <td>{{negocio.hours.Tuesday}}</td>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="pelicula in recomendation.reco">
+                                <td>{{pelicula.movieId}}</td>
+                                <td>{{pelicula.title}}</td>
+                                <td>{{pelicula.director}}</td>
                             </tr>
-                            <tr>
-                                <td>Miécoles</td>
-                                <td>{{negocio.hours.Wednesday}}</td>
-                            </tr>
-                            <tr>
-                                <td>Jueves</td>
-                                <td>{{negocio.hours.Thursday}}</td>
-                            </tr>
-                            <tr>
-                                <td>Viernes</td>
-                                <td>{{negocio.hours.Friday}}</td>
-                            </tr>
-                            <tr>
-                                <td>Sábado</td>
-                                <td>{{negocio.hours.Saturday}}</td>
-                            </tr>
-                            <tr>
-                                <td>Domingo</td>
-                                <td>{{negocio.hours.Sunday}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--tips-->
-                    <div class="row">
-                        <!--pos-->
-                        <div class="col-md-5 col-md-offset-1">
-                            <div class="pos tip col-md-12" ng-repeat="pos in negocio.poses">
-                                <div class="row">
-                                    <div class="tip-text">{{pos.tips}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--neg-->
-                        <div class="col-md-5">
-                            <div class="neg tip col-md-12" ng-repeat="neg in negocio.negs">
-                                <div class="row">
-                                    <div class="tip-text">{{neg.tips}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="row" ng-show="$index === (recomendaciones.length-1) ">
+                    <div ng-if="recomendation.year===2017 && recomendation.month === 8">
+                        No hay más datos disponibles
+                    </div>
+                    <button class="col-sm-12 btn btn-primary" ng-click="get()">Pedir recomendación</button>
+                </div>
+                <hr>
             </div>
         </div>
     </div>
@@ -204,10 +153,6 @@
             <p id="copy">© 2017 Jairo Bautista Mora, Anamaria Mojica Hanke, Fabia Peña Lozano</p>
         </div>
     </footer>
-
-
-
-
     <script src="./script.js"></script>
 </body>
 

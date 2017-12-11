@@ -1,53 +1,50 @@
 angular.module('myApp').factory('communicator', ['$rootScope', function($rootScope){
 
     var user = "";
-    var ciudad = null;
-    var svdW = 0;
+    var cant = 10;
+    var sgdW = 0;
     var contW = 0;
-    var textW = 0;
-    var dia = "";
-    var hora = -1;
+    var onthW = 0;
+    var mes = 12;
+    var year = 2016;
 
     return {
         saveUser : function(userId){
             user = userId;
         },
-        saveCity : function(city){
-            ciudad = city;
-        },
-        getCity : function(){
-            return ciudad;
-        },
         getUser : function(){
             return user;
         },
-        getVecinos : function(){
-            console.log("vecinos" + vecinos);
-            return vecinos;
+        saveCant : function(canti){
+            cant = canti;
         },
-        savePesos : function(svd, contenido, texto){
-            svdW = svd;
+        getCant : function(){
+            return cant;
+        },
+        savePesos : function(sgd, contenido, onth){
+            sgdW = sgd;
             contW = contenido;
-            textW = texto;
+            onthW = onth;
         },
         getPesos : function(){
+
             return {
-                svd : svdW,
+                sgd : sgdW,
                 contenido : contW,
-                texto : textW
+                onth : onthW
             };
         },
-        saveHora : function(hour){
-            hora = hour;
+        saveMes : function(month){
+            mes = month;
         },
-        saveDia : function(day){
-            dia = day;
+        saveYear : function(anio){
+            year = anio;
         },
-        getHora : function(){
-            return hora;
+        getMes : function(){
+            return mes;
         },
-        getDia : function(){
-            return dia;
+        getYear : function(){
+            return year;
         }
     };
 }]);
